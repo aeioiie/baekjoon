@@ -1,3 +1,16 @@
+'''
+graph
+  0 1 2 3 4
+0
+1     1 1 1
+2   1     1
+3   1     1
+4   1 1 1
+
+visited
+0 1 2 3 4
+0 1 1 1 1
+'''
 import queue
 
 n, m, v = map(int, input().split())
@@ -28,7 +41,6 @@ def bfs(graph, start):
         for u in nbr:
             visited.add(u)
             que.put(u)
-
 
 dfs(graph, v, set())
 print()

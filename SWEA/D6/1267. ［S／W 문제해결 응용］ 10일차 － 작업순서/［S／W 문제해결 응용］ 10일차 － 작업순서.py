@@ -1,32 +1,31 @@
+from collections import deque
 for tc in range(1, 11):
     v, e = map(int, input().split())
-    MyMap = [[0] * (v + 1) for _ in range(v + 1)]
-    visited = []
+    edges = list(map(int, input().split()))  # 간선
 
-    Data = list(map(int, input().split()))
-    N = int(len(Data) / 2)
+    indegree = [0] * (v + 1)   # 진입차수
+    graph = [[] for _ in range(v + 1)]  # 연결된 노드
 
-    for i in range(N):
-        row = Data[i * 2]
-        col = Data[i * 2 + 1]
-        MyMap[col][row] = 1
-
+    queue = deque()
     result = []
-    while True:
-        if len(result) == v:
-            break
 
-        start_col = []
-        for col in range(1, len(MyMap)):
-            if 1 not in MyMap[col] and col not in result:
-                start_col.append(col)
+    for i in range(0, e):
+        start = edges[i * 2]
+        end = edges[i * 2 + 1]
+        graph[start].append(end)
+        indegree[end] += 1
 
-        for col in start_col:
-            result.append(col)
-            for row in range(len(MyMap)):
-                MyMap[row][col] = 0
+    for i in range(1, v + 1):
+        if indegree[i] == 0:
+            queue.append(i)
 
-    print(f'#{tc}', end=" ")
-    for i in result:
-        print(f'{i}', end=" ")
-    print()
+    while queue:
+        now = queue.pop()
+        result.append(now)
+        for i in graph[now]:
+            indegree[i] -= 1
+            if indegree[i] == 0:
+                queue.append(i)
+
+    result = ' '.join(list(map(str, result)))
+    print("#{} {}".format(tc, result))

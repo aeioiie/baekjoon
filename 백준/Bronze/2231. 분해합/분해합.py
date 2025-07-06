@@ -1,9 +1,6 @@
 N = int(input())
 list = []
 
-# N = 256 = 245 + 2 + 4 + 5
-# M = 245
-
 for i in range(1, N):
     X = i
     sum = 0

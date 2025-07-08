@@ -1,23 +1,15 @@
-dwarfs = []
-
-for i in range(9):
-    height = int(input())
-    dwarfs.append(height)
-
+dwarfs = [int(input()) for _ in range(9)]
 total = sum(dwarfs)
 
 for i in range(9):
     for j in range(i+1, 9):
         if total - dwarfs[i] - dwarfs[j] == 100:
-            dwarfs.pop(max(i, j))
-            dwarfs.pop(min(i, j))
-            break
-    else:
-        continue
-    break
-    
-
-if len(dwarfs) == 7:
-    dwarfs.sort()
-    for dwarf in dwarfs:
-        print(dwarf)
+            result = [dwarfs[k] for k in range(9) if k != i and k != j]
+            result.sort()
+            for dwarf in result:
+                print(dwarf)
+            exit()
+            
+dwarfs.sort()
+for dwarf in dwarfs:
+    print(dwarf)

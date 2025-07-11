@@ -6,6 +6,8 @@ for i in range(N):
     horizontal = list(input())
     inputarray[i] = horizontal
 
+# inputarray = [list(input()) for _ in range(N)]
+
 # print(inputarray)
 
 WBarray = [[], [], [], [], [], [], [], []]

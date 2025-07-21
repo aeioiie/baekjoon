@@ -1,47 +1,50 @@
+N, M, V = map(int, input().split())
+
+# dfs
+graph = [[False] * (N+1) for _ in range(N+1)]
+visited = [False] * (N+1)
+
 '''
-graph
-  0 1 2 3 4
-0
-1     1 1 1
-2   1     1
-3   1     1
-4   1 1 1
-
-visited
-0 1 2 3 4
-0 1 1 1 1
+graph 0 1 2 3 4
+0     - - - - -
+1     - - 1 1 1
+2     - 1 - - 1
+3     - 1 - - 1
+4     - 1 1 1 -
 '''
-import queue
 
-n, m, v = map(int, input().split())
-graph = [[0]*(n+1) for _ in range(n+1)]
-visited = [False]*(n+1)
-
-for i in range(m):
+for i in range(M):
     a, b = map(int, input().split())
-    graph[a][b] = 1
-    graph[b][a] = 1
+    graph[a][b] = True
+    graph[b][a] = True
 
-def dfs(graph, start, visited):
-    if start not in visited:
-        visited.add(start)
-        print(start, end=' ')
-        nbr = sorted({i for i in range(1, n+1) if graph[start][i] == 1} - visited)
-        for v in nbr:
-            dfs(graph, v, visited)
+def dfs(v):
+    global visited
+    visited[v] = True
+    print(v, end=' ')
 
-def bfs(graph, start):
-    visited = {start}
-    que = queue.Queue()
-    que.put(start)
-    while not que.empty():
-        v = que.get()
-        print(v, end=' ')
-        nbr = sorted({i for i in range(1, n+1) if graph[v][i] == 1} - visited)
-        for u in nbr:
-            visited.add(u)
-            que.put(u)
+    for i in range(1, N+1):
+        if not visited[i] and graph[v][i]:
+            dfs(i)
 
-dfs(graph, v, set())
+dfs(V)
 print()
-bfs(graph, v)
+
+# bfs
+visited = [False] * (N+1)
+q = [V]
+visited[V] = True
+
+def bfs(v):
+    global visited, q
+    while q:
+        v = q.pop(0)
+        print(v, end=' ')
+
+        for i in range(1, N+1):
+            if not visited[i] and graph[v][i]:
+                visited[i] = True
+                q.append(i)
+
+
+bfs(V)

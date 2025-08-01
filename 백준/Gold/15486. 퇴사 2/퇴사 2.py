@@ -19,3 +19,24 @@ for i in range(N):
         dp[i + time[i]] = max(dp[i + time[i]], dp[i] + profit[i])
 
 print(dp[N])
+
+'''
+N = int(input())
+time = [0] * (N+1)
+profit = [0] * (N+1)
+dp = [0] * (N+2)
+
+for i in range(1, N+1):
+    t, p = map(int, input().split())
+    time[i] = t
+    profit[i] = p
+
+for i in range(N, 0, -1):
+    if i + time[i] - 1 <= N:
+        dp[i] = max(dp[i+1], profit[i] + dp[i + time[i]])
+    else:
+        dp[i] = dp[i+1]
+
+print(dp[1])
+'''
+
